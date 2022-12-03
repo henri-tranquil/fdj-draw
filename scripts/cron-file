@@ -1,0 +1,1 @@
+* 22 * * * sh ~/loto-parsing/scripts/download_latest.sh >> log.txt
