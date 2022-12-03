@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import * as fs from 'fs';
 import { Euromillions } from './euromillions.dto';
 
-const RESOURCES_FOLDER = './resources';
+const RESOURCES_FOLDER = '../resources';
 
 @Injectable()
 export class EuromillionsService {
