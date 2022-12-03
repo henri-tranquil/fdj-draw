@@ -8,6 +8,7 @@ const RESOURCES_FOLDER = '../resources';
 export class EuromillionsService {
   data: Euromillions[];
   constructor() {
+    console.log('PWD :', process.env.PWD);
     this.data = JSON.parse(
       fs.readFileSync(RESOURCES_FOLDER + '/euromillions.json', {
         encoding: 'utf8',
