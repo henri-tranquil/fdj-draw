@@ -1,1 +1,1 @@
-* * * * * /root/fdj-draw/scripts/download_latest.sh >> log.txt
+0 22 * * * /root/fdj-draw/scripts/download_latest.sh
