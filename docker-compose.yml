@@ -1,0 +1,10 @@
+version: "3.2"
+services:
+  api:
+    build: .
+    volumes:
+      - ./resources:/resources
+    ports:
+      - "80:3230"
+volumes:
+  resources:

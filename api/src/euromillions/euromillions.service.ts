@@ -21,7 +21,7 @@ export class EuromillionsService {
     this.loadFile();
     setInterval(() => {
       this.loadFile();
-    }, 1000);
+    }, 1000 * 60);
   }
 
   getAll() {
@@ -35,7 +35,6 @@ export class EuromillionsService {
   }
 
   loadFile() {
-    console.log('LOAD FILE CALL');
     const bufferedFile = readFileSync(RESOURCES_FOLDER + '/euromillions.json', {
       encoding: 'utf8',
       flag: 'r',
@@ -44,7 +43,6 @@ export class EuromillionsService {
     hashSum.update(bufferedFile);
     const hash = hashSum.digest('hex');
     if (hash !== this.latestHash) {
-      console.log('FILE HAS CHANGED');
       this.latestHash = hash;
       this.data = JSON.parse(bufferedFile);
       const embeds = [
@@ -65,7 +63,6 @@ export class EuromillionsService {
       DISCORD_CONFIG['data'] = JSON.stringify({ embeds });
       axios(DISCORD_CONFIG)
         .then((response) => {
-          console.log('Webhook delivered successfully');
           return response;
         })
         .catch((error) => {
