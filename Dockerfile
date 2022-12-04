@@ -2,11 +2,9 @@ FROM node:18
 
 WORKDIR /app
 
-COPY api ./api
-COPY resources ./resources
-COPY entrypoint.sh entrypoint.sh
+COPY ./api .
 
-RUN cd api && npm ci
-RUN cd api && npm run build
+RUN npm ci
+RUN npm run build
 
-ENTRYPOINT ["/bin/sh","entrypoint.sh"]
+CMD ["node","dist/main.js"]
