@@ -25,30 +25,30 @@ class CSVParser {
   _analyseElement(element) {
     const date = element[2];
     let newDate = "";
-    let boules = [];
-    let etoiles = [];
+    let balls = [];
+    let stars = [];
 
     if (date.length === 10) {
       const dateTable = date.split("/");
       newDate = `${dateTable[2]}-${dateTable[1]}-${dateTable[0]}Z20:00:00.000Z`;
       if (element[4].indexOf("/") === -1) {
-        boules = [
+        balls = [
           Number.parseInt(element[4]),
           Number.parseInt(element[5]),
           Number.parseInt(element[6]),
           Number.parseInt(element[7]),
           Number.parseInt(element[8]),
         ];
-        etoiles = [Number.parseInt(element[9]), Number.parseInt(element[10])];
+        stars = [Number.parseInt(element[9]), Number.parseInt(element[10])];
       } else {
-        boules = [
+        balls = [
           Number.parseInt(element[5]),
           Number.parseInt(element[6]),
           Number.parseInt(element[7]),
           Number.parseInt(element[8]),
           Number.parseInt(element[9]),
         ];
-        etoiles = [Number.parseInt(element[10]), Number.parseInt(element[11])];
+        stars = [Number.parseInt(element[10]), Number.parseInt(element[11])];
       }
     }
     if (date.length === 8 && date.indexOf("/") === -1) {
@@ -57,23 +57,23 @@ class CSVParser {
         6
       )}-${date.substring(6, 8)}Z20:00:00.000Z`;
       if (element[4].indexOf("/") === -1) {
-        boules = [
+        balls = [
           Number.parseInt(element[4]),
           Number.parseInt(element[5]),
           Number.parseInt(element[6]),
           Number.parseInt(element[7]),
           Number.parseInt(element[8]),
         ];
-        etoiles = [Number.parseInt(element[9]), Number.parseInt(element[10])];
+        stars = [Number.parseInt(element[9]), Number.parseInt(element[10])];
       } else {
-        boules = [
+        balls = [
           Number.parseInt(element[5]),
           Number.parseInt(element[6]),
           Number.parseInt(element[7]),
           Number.parseInt(element[8]),
           Number.parseInt(element[9]),
         ];
-        etoiles = [Number.parseInt(element[10]), Number.parseInt(element[11])];
+        stars = [Number.parseInt(element[10]), Number.parseInt(element[11])];
       }
     }
 
@@ -83,29 +83,29 @@ class CSVParser {
         5
       )}-${date.substring(0, 2)}Z20:00:00.000Z`;
       if (element[4].indexOf("/") === -1) {
-        boules = [
+        balls = [
           Number.parseInt(element[4]),
           Number.parseInt(element[5]),
           Number.parseInt(element[6]),
           Number.parseInt(element[7]),
           Number.parseInt(element[8]),
         ];
-        etoiles = [Number.parseInt(element[9]), Number.parseInt(element[10])];
+        stars = [Number.parseInt(element[9]), Number.parseInt(element[10])];
       } else {
-        boules = [
+        balls = [
           Number.parseInt(element[5]),
           Number.parseInt(element[6]),
           Number.parseInt(element[7]),
           Number.parseInt(element[8]),
           Number.parseInt(element[9]),
         ];
-        etoiles = [Number.parseInt(element[10]), Number.parseInt(element[11])];
+        stars = [Number.parseInt(element[10]), Number.parseInt(element[11])];
       }
     }
     return {
       date: new Date(newDate).toISOString(),
-      boules,
-      etoiles,
+      balls,
+      stars,
     };
   }
   getDatas() {

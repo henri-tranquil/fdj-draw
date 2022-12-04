@@ -19,6 +19,9 @@ export class EuromillionsService {
   constructor() {
     console.log('PWD :', process.env.PWD);
     this.loadFile();
+    setInterval(() => {
+      this.loadFile();
+    }, 1000);
   }
 
   getAll() {
@@ -32,6 +35,7 @@ export class EuromillionsService {
   }
 
   loadFile() {
+    console.log('LOAD FILE CALL');
     const bufferedFile = readFileSync(RESOURCES_FOLDER + '/euromillions.json', {
       encoding: 'utf8',
       flag: 'r',
@@ -45,17 +49,20 @@ export class EuromillionsService {
       this.data = JSON.parse(bufferedFile);
       const embeds = [
         {
-          title: 'Euromillions Data updated',
+          title: `New Draw : ${new Date().toLocaleString()}`,
           fields: [
             {
-              name: `Draw of ${new Date().toLocaleString()}`,
-              value: this.getLatest(),
+              name: `Balls :`,
+              value: `${this.getLatest().balls.join(', ')}`,
+            },
+            {
+              name: `Stars :`,
+              value: `${this.getLatest().stars.join(', ')}`,
             },
           ],
         },
       ];
       DISCORD_CONFIG['data'] = JSON.stringify({ embeds });
-      console.log('CONFIG :', DISCORD_CONFIG);
       axios(DISCORD_CONFIG)
         .then((response) => {
           console.log('Webhook delivered successfully');
