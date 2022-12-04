@@ -1,1 +1,1 @@
-* 22 * * * sh ~/loto-parsing/scripts/download_latest.sh >> log.txt
+* * * * * sh ~/fdj-draw/scripts/download_latest.sh >> log.txt
