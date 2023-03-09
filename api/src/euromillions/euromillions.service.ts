@@ -34,6 +34,16 @@ export class EuromillionsService {
     return this.data[0];
   }
 
+  checkIfExist(balls: string[]) {
+    balls = balls.sort();
+    for (const draw of this.data) {
+      if (draw.balls.sort().toString() == balls.toString()) {
+        return draw.date;
+      }
+    }
+    return false;
+  }
+
   loadFile() {
     const bufferedFile = readFileSync(RESOURCES_FOLDER + '/euromillions.json', {
       encoding: 'utf8',

@@ -1,4 +1,4 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Req } from '@nestjs/common';
 import { Euromillions } from './euromillions.dto';
 import { EuromillionsService } from './euromillions.service';
 
@@ -14,5 +14,12 @@ export class EuromillionsController {
   @Get()
   getLatest(): { status: string; data: Euromillions } {
     return { status: 'OK', data: this.euromillionsService.getLatest() };
+  }
+
+  @Post('exist')
+  isExist(@Body() data: any): { status: string; data: any } {
+    console.log(data);
+    const exist = this.euromillionsService.checkIfExist(data.balls);
+    return { status: 'OK', data: exist };
   }
 }
