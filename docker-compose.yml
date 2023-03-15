@@ -1,6 +1,8 @@
 version: "3.2"
 services:
   api:
+    environment:
+      - DISCORD=${DISCORD}
     build: .
     volumes:
       - ./resources:/resources

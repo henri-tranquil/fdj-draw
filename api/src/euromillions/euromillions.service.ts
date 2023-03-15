@@ -3,14 +3,17 @@ import { createHash } from 'crypto';
 import { readFileSync } from 'fs';
 import { Euromillions } from './euromillions.dto';
 import axios from 'axios';
+import { env } from 'process';
 
 const RESOURCES_FOLDER = '../resources';
 
 const DISCORD_CONFIG = {
   method: 'POST',
-  url: 'https://discord.com/api/webhooks/1047987192607297566/I_zC3Wma4bLuwDxleVzwreGhkWqQrRdqg7ATJOdIIoUJudX5-G0cAeMUTt8Yvq81O95V',
+  url: env.DISCORD,
   headers: { 'Content-Type': 'application/json' },
 };
+
+console.log(DISCORD_CONFIG);
 
 @Injectable()
 export class EuromillionsService {
