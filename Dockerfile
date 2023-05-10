@@ -1,5 +1,7 @@
 FROM node:18
 
+RUN apk add python make gcc g++
+
 WORKDIR /app
 
 COPY ./api .
