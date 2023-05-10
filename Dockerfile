@@ -1,7 +1,6 @@
-FROM node:18
+FROM node:18-alpine
 
-RUN apk add python make gcc g++
-
+RUN apk --no-cache add --virtual .builds-deps build-base python3 make gcc g++ pkgconfig
 WORKDIR /app
 
 COPY ./api .
