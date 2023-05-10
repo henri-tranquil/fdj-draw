@@ -68,8 +68,8 @@ export class EuromillionsService {
       const input_stars = this._generateOutput(last.stars, true);
       const output_balls = this._generateOutput(element.balls);
       const output_stars = this._generateOutput(element.stars, true);
-      trainingBallsData.push({ input_balls, output_balls });
-      trainingstarsData.push({ input_stars, output_stars });
+      trainingBallsData.push({ input: input_balls, output: output_balls });
+      trainingstarsData.push({ input: input_stars, output: output_stars });
     }
     console.log('INITIALISE NETWORK');
 
@@ -100,7 +100,7 @@ export class EuromillionsService {
     const input_stars = previousNumbersStars;
 
     const output_balls = net_balls.run(input_balls);
-    const output_stars = net_balls.run(input_stars);
+    const output_stars = net_stars.run(input_stars);
     const result = {
       balls: this._getBestFromResult(output_balls).sort(),
       stars: this._getBestFromResult(output_stars, true).sort(),
