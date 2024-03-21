@@ -48,37 +48,21 @@ export class EuromillionsService {
     return false;
   }
 
-  private _generateOutput(balls, is_stars = false) {
-    const nb_balls = is_stars ? 12 : 50;
-    const generatedOutput = {};
-    for (let i = 0; i < nb_balls; i++) {
-      generatedOutput[`b${(i + 1).toString()}`] = 0;
-    }
-
-    for (const ball of balls) {
-      generatedOutput[`b${ball.toString()}`] = 1;
-    }
-    return generatedOutput;
-  }
-
-  private _getBestFromResult(results, is_stars = false) {
-    const nb_element = is_stars ? 2 : 5;
-    const sortedPairs = Object.entries(results).sort(
-      (a: any, b: any) => b[1] - a[1],
-    );
-
-    const sortedObj = Object.fromEntries(sortedPairs);
-    const best = Object.keys(sortedObj).slice(0, nb_element);
-    return best.map((e) => parseInt(e.substring(1)));
-  }
-
   private _processData(dataset) {
     const data = [...dataset].reverse();
 
     return data.map((d) => {
       const date = new Date(d.date);
-      const balls = d.balls.map((n) => parseInt(n.toString())).sort();
-      const stars = d.stars.map((s) => parseInt(s.toString())).sort();
+      const balls = d.balls
+        .map((n) => parseInt(n.toString()))
+        .sort(function (a, b) {
+          return a - b;
+        });
+      const stars = d.stars
+        .map((s) => parseInt(s.toString()))
+        .sort(function (a, b) {
+          return a - b;
+        });
       return { ...d, date, balls, stars };
     });
   }
@@ -101,7 +85,7 @@ export class EuromillionsService {
       this.latestHash = hash;
       this.data = JSON.parse(bufferedFile);
       const processedData = this._processData(this.data);
-      //this._mlService.train(processedData);
+      this._mlService.train(processedData);
       const lastDraw = processedData[processedData.length - 1];
       const previousDrawEstimation = this._mlService.lastEstimation;
       const nextDraw = this._mlService.predictNext(
@@ -124,7 +108,6 @@ export class EuromillionsService {
         name: `Next Estimated Draw`,
         value: this._formatDraw(nextDraw),
       });
-      console.log('DRAW', nextDraw);
       const embeds = [
         {
           title: `Euromillion draw from : ${new Date().toLocaleDateString(
@@ -133,14 +116,13 @@ export class EuromillionsService {
           fields,
         },
       ];
-      console.log(JSON.stringify({ embeds }));
       DISCORD_CONFIG['data'] = JSON.stringify({ embeds });
       axios(DISCORD_CONFIG)
         .then((response) => {
           return response;
         })
         .catch((error) => {
-          //console.log(error);
+          console.log(error);
           return error;
         });
     }
