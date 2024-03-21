@@ -34,3 +34,7 @@ GET localhost:3000/euromillions/all
 ```
 GET localhost:3000/euromillions
 ```
+
+## Docker
+
+To rebuild image, you need to execute `docker-compose build` before `docker-compose up -d`
