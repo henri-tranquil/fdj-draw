@@ -1,15 +1,17 @@
-FROM ubuntu:18.04 AS builder
+FROM node:18-alpine3.18
 
-RUN apt-get update
-RUN apt-get remove -y gyp
-RUN apt-get -y install curl bzip2 build-essential g++ python git make gcc gcc-multilib node-gyp sudo
-RUN curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
-RUN apt-get install -y build-essential
-RUN apt-get install -y nodejs
+RUN apk add --no-cache --virtual python py3-pip pkgconfig make g++ libx11-dev libxext-dev libxi-dev
+   
+RUN python3 --version
+WORKDIR /app
 
 COPY ./api .
 
-RUN npm ci
+RUN npm -g install npm
+RUN npm -g install node-gyp
+RUN npm -g install make
+
+RUN npm i
 RUN npm run build
 
 CMD ["node","dist/main.js"]
