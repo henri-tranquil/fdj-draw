@@ -46,6 +46,11 @@ export class EuromillionsService {
     }
     return false;
   }
+  private _formatDraw(draw) {
+    return `:yellow_circle: ${draw.balls.join(
+      ', ',
+    )}\n :star:  ${draw.stars.join(', ')}`;
+  }
 
   loadFile() {
     const bufferedFile = readFileSync(RESOURCES_FOLDER + '/euromillions.json', {
@@ -63,13 +68,9 @@ export class EuromillionsService {
           title: `New Draw : ${new Date().toLocaleString()}`,
           fields: [
             {
-              name: `Balls :`,
-              value: `${this.getLatest().balls.join(', ')}`,
-            },
-            {
-              name: `Stars :`,
-              value: `${this.getLatest().stars.join(', ')}`,
-            },
+              name: `Latest Draw`,
+              value: this._formatDraw(this.getLatest()),
+            }
           ],
         },
       ];
